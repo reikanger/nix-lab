@@ -39,13 +39,11 @@
   # Shell Configuration
   programs.zsh = {
     enable = true;
-
     autosuggestion.enable = true;
-    #zsh-autoenv.enable = true;
     syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "history" "python" "man" ];
+      plugins = [ "git" "history" "python" "man" "sudo" ];
       theme = "gentoo";
     };
 
@@ -80,14 +78,13 @@
     drawio
     git
     gnome-boxes
-    #libation
     metadata-cleaner
     neovim
     obsidian
     parabolic
     planify
     plexamp
-    postman
+    podman-desktop
     slack
     video-trimmer
     virt-manager
@@ -97,21 +94,10 @@
     mongodb-compass
     mongosh
     mongodb-tools
-    #chromedriver
-    #python312
-    #python312Packages.ipython
-    #python312Packages.selenium
-    #python312Packages.beautifulsoup4
-    #python312Packages.jupyterlab
-    #python312Packages.ipykernel
-    #python312Packages.splinter
-
-    # large language model - https://ollama.com/
-    ollama
+    postman
 
     # gaming
     cartridges
-    #lutris
 
     # gnome extensions
     gnomeExtensions.caffeine
