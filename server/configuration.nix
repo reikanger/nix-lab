@@ -18,10 +18,11 @@
       ./config/networking.nix
       ./config/nfs.nix
       ./config/packages.nix
+      ./config/podman-pods.nix
       ./config/reverse-proxy.nix
       ./config/samba.nix
       ./config/ssh.nix
-      #./config/tailscale.nix
+      ./config/tailscale.nix
       #./config/virtualization.nix
       ./config/zfs.nix
 
