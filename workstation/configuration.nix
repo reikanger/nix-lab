@@ -13,10 +13,13 @@
       <home-manager/nixos>
 
       ./config/auto-upgrade.nix
+      ./config/containers.nix
       ./config/gaming.nix
       ./config/networking.nix
       ./config/packages.nix
+      ./config/ssh.nix
       ./config/tailscale.nix
+      ./config/virtualisation.nix
 
       ./config/users/reika.nix
     ];
@@ -97,37 +100,11 @@
   #   enableSSHSupport = true;
   # };
 
-  # List services that you want to enable:
-
   # Discard for NVME
   services.fstrim.enable = true;
 
   # Enable OpenRGB
   services.hardware.openrgb.enable = true;
-
-  # KVM
-  virtualisation.libvirtd.enable = true;
-
-  # Podman
-  virtualisation.containers.enable = true;
-  virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    PermitRootLogin = "no";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
