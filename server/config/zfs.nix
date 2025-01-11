@@ -1,8 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  programs.zsh.enable = true;
-
   # ZFS Support
   boot.supportedFilesystems = [ "zfs" ];
   boot.zfs.forceImportRoot = false;
