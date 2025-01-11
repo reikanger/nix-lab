@@ -11,6 +11,14 @@
 
       # home-manager
       <home-manager/nixos>
+
+      ./config/auto-upgrade.nix
+      ./config/gaming.nix
+      ./config/networking.nix
+      ./config/packages.nix
+      ./config/tailscale.nix
+
+      ./config/users/reika.nix
     ];
 
   # Bootloader.
@@ -20,10 +28,6 @@
   # CPU Governor
   powerManagement.cpuFreqGovernor = "ondemand";
 
-  # Networking
-  networking.hostName = "protos"; # Define your hostname.
-  networking.networkmanager.enable = true;
-  
   # Enable Bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -85,63 +89,6 @@
     #media-session.enable = true;
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.reika = {
-    isNormalUser = true;
-    description = "Ryan Eikanger";
-    shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "qemu" "kvm" "libvirtd" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK0ZmfCfV8PYxNvlDjYiMdwxlcu+ZC7xkjIBp3Qv6toA reika.io"
-    ];
-  };
-
-  # Enable home-manager for the reika user
-  home-manager.users.reika = import ./reika-home.nix;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # Automatic updates of packages
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = false;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    cifs-utils
-    firefox
-    google-chrome
-    gnome-tweaks
-    libreoffice
-    neovim
-    tmux
-  ];
-
-  programs.zsh.enable = true;
-
-  # Gaming
-  programs.steam = {
-    enable = true;
-  };
-
-  # Gamemode
-  programs.gamemode = {
-    enable = true;
-    enableRenice = true;
-    settings = {
-      general = {
-        desiredgov = "performance";
-        softrealtime = "auto";
-        renice = 10;
-      };
-      custom = {
-        start = "/run/current-system/sw/bin/gnome-extensions enable dash-to-panel@jderose9.github.com";
-        end = "/run/current-system/sw/bin/gnome-extensions disable dash-to-panel@jderose9.github.com";
-      };
-    };
-  };
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -181,12 +128,6 @@
     PasswordAuthentication = false;
     PermitRootLogin = "no";
   };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.allowedUDPPorts = [ ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
