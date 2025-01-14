@@ -5,7 +5,7 @@
   users.users.reika = {
     isNormalUser = true;
     description = "Ryan Eikanger";
-    shell = pkgs.zsh;
+    shell = pkgs.fish;
     extraGroups = [ "networkmanager" "wheel" "qemu" "kvm" "libvirtd" ];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = [

@@ -4,6 +4,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Enable FISH Shell
+  programs.fish.enable = true;
+
   # Enable ZSH
   programs.zsh.enable = true;
 
@@ -12,11 +15,11 @@
   environment.systemPackages = with pkgs; [
     cifs-utils
     firefox
+    ghostty
     google-chrome
     gnome-tweaks
     libreoffice
     neovim
-    ptyxis
     tmux
   ];
 }
