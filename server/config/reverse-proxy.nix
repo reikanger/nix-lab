@@ -9,12 +9,6 @@
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
 
-    virtualHosts."kavita.reika.io" = {
-      forceSSL = true;
-      useACMEHost = "reika.io";
-      locations."/".proxyPass = "http://127.0.0.1:18999/";
-    };
-
     virtualHosts."cloudbeaver.reika.io" = {
       forceSSL = true;
       useACMEHost = "reika.io";
@@ -62,6 +56,12 @@
       forceSSL = true;
       useACMEHost = "reika.io";
       locations."/".proxyPass = "http://127.0.0.1:10083/";
+    };
+
+    virtualHosts."pihole.reika.io" = {
+      forceSSL = true;
+      useACMEHost = "reika.io";
+      locations."/".proxyPass = "http://127.0.0.1:10094/";
     };
 
     virtualHosts."plex.reika.io" = {

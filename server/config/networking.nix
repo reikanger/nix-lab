@@ -21,6 +21,7 @@
   ];
 
   networking.firewall.allowedUDPPorts = [
+    53		# dns
     111         # nfs
     2049        # nfs
     config.services.tailscale.port
