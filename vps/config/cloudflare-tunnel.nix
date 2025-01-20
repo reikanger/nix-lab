@@ -10,7 +10,6 @@
         default = "http_status:404";
 	ingress = {
 	  "audiobooks.reika.io" = "http://localhost:10081";
-	  "kavita.reika.io" = "http://localhost:18999";
 	  "monica.reika.io" = "http://localhost:10085";
 	  "skywatch.reika.io" = "http://127.0.0.1:8000";
 	  "skywatch-api.reika.io" = "http://127.0.0.1:5000";

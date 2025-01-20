@@ -23,6 +23,7 @@
       # Audiobookshelf
       audiobooks = {
         image = "ghcr.io/advplyr/audiobookshelf:latest";
+	extraOptions = [ "--pull=newer" ];
         hostname = "audiobooks";
         ports = [ "127.0.0.1:10081:80" ];
         environment = {
@@ -38,6 +39,7 @@
       # kavita books
       kavita = {
         image = "docker.io/jvmilazz0/kavita:latest";
+	extraOptions = [ "--pull=newer" ];
         hostname = "kavita";
         ports = [ "127.0.0.1:18999:5000" ];
         volumes = [
@@ -48,6 +50,7 @@
       # Mealie
       recipes = {
         image = "ghcr.io/mealie-recipes/mealie:latest";
+	extraOptions = [ "--pull=newer" ];
         hostname = "recipes";
 	#user = "1000:100";
         ports = [ "127.0.0.1:10084:9000" ];
@@ -66,12 +69,10 @@
 
       # Monica
       monica-crm = {
-        image = "docker.io/monica:latest";
-        #hostname = "monica"; # cannot set hostname when joining a pod
-	#user = "1000:100";
-	extraOptions = [ "--pod=monica" ];
+        image = "docker.io/monica:fpm";
+	extraOptions = [ "--pod=monica" "--pull=newer" ];
         dependsOn = [ "monica-db" ];
-        #ports = [ "127.0.0.1:10085:80" ];
+        #ports = [ "127.0.0.1:10085:9000" ];
         environment = {
           APP_KEY = "";
           DB_HOST = "monica-db";
@@ -80,6 +81,7 @@
           APP_TRUSTED_PROXIES = "*";
           APP_ENV = "production";
           APP_URL = "https://monica.reika.io/";
+	  APP_FORCE_URL = "false";
         };
         volumes = [
           "monica_data:/var/www/html/storage"
@@ -88,12 +90,10 @@
 
       monica-db = {
         image = "docker.io/mysql:5.7";
-        #hostname = "monica-db"; # cannot set hostname when joining a pod
-	#user = "1000:100";
-	extraOptions = [ "--pod=monica" ];
+	extraOptions = [ "--pod=monica" "--pull=newer" ];
         environment = {
           MYSQL_RANDOM_ROOT_PASSWORD = "true";
-          MYSQL_DATABASE = "";
+          MYSQL_DATABASE = "monica";
           MYSQL_USER = "";
           MYSQL_PASSWORD = "";
         };
@@ -105,9 +105,7 @@
       # Wallabag
       walladb = {
         image = "docker.io/mariadb:latest";
-        #hostname = "walladb"; # cannot set hostname when joining a pod
-	#user = "1000:100";
-	extraOptions = [ "--pod=walla" ];
+	extraOptions = [ "--pod=walla" "--pull=newer" ];
         environment = {
           MYSQL_ROOT_PASSWORD = "";
         };
@@ -118,16 +116,12 @@
 
       walla-redis = {
         image = "docker.io/redis:alpine";
-	#hostname = "walla-redis"; # cannot set hostname when joining a pod
-	#user = "1000:100";
-	extraOptions = [ "--pod=walla" ];
+	extraOptions = [ "--pod=walla" "--pull=newer" ];
       };
 
       wallabag = {
         image = "docker.io/wallabag/wallabag:latest";
-        #hostname = "wallabag"; # cannot set hostname when joining a pod
-	#user = "1000:100";
-	extraOptions = [ "--pod=walla" ];
+	extraOptions = [ "--pod=walla" "--pull=newer" ];
         dependsOn = [ "walladb" "walla-redis" ];
         #ports = [ "127.0.0.1:19013:80" ];
         environment = {

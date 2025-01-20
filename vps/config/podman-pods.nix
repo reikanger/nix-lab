@@ -6,7 +6,7 @@
     wantedBy = [ "podman-monica-db.service" ];
     script = ''
       ${pkgs.podman}/bin/podman pod exists monica || \
-        ${pkgs.podman}/bin/podman pod create --name monica -p '127.0.0.1:10085:80'
+        ${pkgs.podman}/bin/podman pod create --name monica -p '10085:9000'
     '';
   };
 
