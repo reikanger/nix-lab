@@ -36,17 +36,6 @@
         ];
       };
 
-      # kavita books
-      kavita = {
-        image = "docker.io/jvmilazz0/kavita:latest";
-	extraOptions = [ "--pull=newer" ];
-        hostname = "kavita";
-        ports = [ "127.0.0.1:18999:5000" ];
-        volumes = [
-          "kavita_data:/kavita/config"
-        ];
-      };
-
       # Mealie
       recipes = {
         image = "ghcr.io/mealie-recipes/mealie:latest";
@@ -64,41 +53,6 @@
         };
         volumes = [
           "/srv/podman/mealie:/app/data"
-        ];
-      };
-
-      # Monica
-      monica-crm = {
-        image = "docker.io/monica:fpm";
-	extraOptions = [ "--pod=monica" "--pull=newer" ];
-        dependsOn = [ "monica-db" ];
-        #ports = [ "127.0.0.1:10085:9000" ];
-        environment = {
-          APP_KEY = "";
-          DB_HOST = "monica-db";
-          DB_USERNAME = "";
-          DB_PASSWORD = "";
-          APP_TRUSTED_PROXIES = "*";
-          APP_ENV = "production";
-          APP_URL = "https://monica.reika.io/";
-	  APP_FORCE_URL = "false";
-        };
-        volumes = [
-          "monica_data:/var/www/html/storage"
-        ];
-      };
-
-      monica-db = {
-        image = "docker.io/mysql:5.7";
-	extraOptions = [ "--pod=monica" "--pull=newer" ];
-        environment = {
-          MYSQL_RANDOM_ROOT_PASSWORD = "true";
-          MYSQL_DATABASE = "monica";
-          MYSQL_USER = "";
-          MYSQL_PASSWORD = "";
-        };
-        volumes = [
-          "monicadb_data:/var/lib/mysql"
         ];
       };
 
