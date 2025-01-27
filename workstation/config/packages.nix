@@ -17,6 +17,16 @@
     firefox
     ghostty
     google-chrome
+    gnomeExtensions.arcmenu
+    gnomeExtensions.blur-my-shell
+    gnomeExtensions.caffeine
+    gnomeExtensions.color-picker
+    gnomeExtensions.dash-to-dock
+    gnomeExtensions.dash-to-panel
+    gnomeExtensions.night-theme-switcher
+    gnomeExtensions.notification-banner-reloaded
+    gnomeExtensions.tray-icons-reloaded
+    gnome-menus
     gnome-tweaks
     libreoffice
     neovim
