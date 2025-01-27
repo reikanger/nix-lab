@@ -32,22 +32,13 @@
     ];
     extraConfig = ''
       set-option -g mouse on
-      set-option -g default-shell ${pkgs.zsh}/bin/zsh
+      set-option -g default-shell ${pkgs.fish}/bin/fish
     '';
   };
 
   # Shell Configuration
-  programs.zsh = {
+  programs.fish = {
     enable = true;
-
-    autosuggestion.enable = true;
-    #zsh-autoenv.enable = true;
-    syntaxHighlighting.enable = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "history" "python" "man" ];
-      theme = "gentoo";
-    };
 
     shellAliases = {
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
@@ -69,6 +60,7 @@
   # Packages installed to the user profile
   home.packages = with pkgs; [
     # utils
+    btop
     git
     htop
     iftop

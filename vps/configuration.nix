@@ -11,16 +11,22 @@
 
       # home-manager
       <home-manager/nixos>
+      
+      ./config/cloudflare-tunnel.nix
+      ./config/containers.nix
+      ./config/networking.nix
+      ./config/packages.nix
+      ./config/podman-pods.nix
+      ./config/ssh.nix
+      ./config/tailscale.nix
+
+      ./config/users/reika.nix
     ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
   boot.loader.grub.useOSProber = true;
-
-  # Enable networking
-  networking.hostName = "vespator"; # Define your hostname.
-  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
@@ -41,91 +47,10 @@
   };
 
   # Configure keymap in X11
-  services.xserver = {
+  services.xserver.xkb = {
     layout = "us";
-    xkbVariant = "";
+    variant = "";
   };
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.reika = {
-    isNormalUser = true;
-    description = "Ryan Eikanger";
-    shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK0ZmfCfV8PYxNvlDjYiMdwxlcu+ZC7xkjIBp3Qv6toA reika.io"
-    ];
-  };
-
-  # Enable home-manager for the reika user
-  home-manager.users.reika = import ./reika-home.nix;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    cloudflared
-    neovim
-    tmux
-  ];
-
-  programs.zsh.enable = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # ACME LetsEncrypt
-
-  # Nginx Reverse Proxy
-
-  # CloudFlare Tunnel
-  services.cloudflared = {
-    enable = true;
-    user = "reika";
-    tunnels = {
-      "061faa3b-7a95-4985-80b4-3ccca1b4a724" = {
-        default = "http_status:404";
-	ingress = {
-	  "skywatch.reika.io" = "http://localhost:8000";
-	  "skywatch-api.reika.io" = "http://localhost:5000";
-	};
-	credentialsFile = "${config.users.users.reika.home}/.cloudflared/061faa3b-7a95-4985-80b4-3ccca1b4a724.json";
-      };
-    };
-  };
-
-  # Podman containers
-  virtualisation.containers.enable = true;
-  virtualisation = {
-    podman = {
-      enable = true;
-
-      # Create a `docker` alias for podman, to use it as a drop-in replacement
-      dockerCompat = true;
-
-      # Required for containers under podman-compose to be able to talk to each other.
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.settings = {
-    PasswordAuthentication = false;
-    PermitRootLogin = "no";
-  };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
-  networking.firewall.allowedUDPPorts = [ ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

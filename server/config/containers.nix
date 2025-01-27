@@ -66,7 +66,7 @@
         environment = {
           APP_ENV = "production";
           APP_DEBUG = "false";
-          SITE_OWNER = "";
+          SITE_OWNER = "reikanger@gmail.com";
           APP_KEY = "";
           DEFAULT_LANGUAGE = "en_US";
           DEFAULT_LOCALE = "equal";
@@ -78,8 +78,8 @@
           DB_CONNECTION = "mysql";
           DB_HOST = "firefly-db";
           DB_PORT = "3306";
-          DB_DATABASE = "";
-          DB_USERNAME = "";
+          DB_DATABASE = "firefly";
+          DB_USERNAME = "firefly";
           DB_PASSWORD = "";
           MYSQL_USE_SSL = "false";
           MYSQL_SSL_VERIFY_SERVER_CERT = "true";
@@ -242,6 +242,28 @@
         volumes = [
           "paperless_broker_data:/data"
         ];
+      };
+
+      pihole = {
+        image = "docker.io/pihole/pihole:latest";
+	# --pull=newer defined below
+	hostname = "pihole";
+	ports = [
+	  "192.168.1.5:53:53/tcp"
+	  "192.168.1.5:53:53/udp"
+	  "127.0.0.1:10094:80/tcp"
+	];
+	environment = {
+	  TZ = "America/Chicago";
+	};
+	volumes = [
+	  "/srv/podman/pihole/pihole:/etc/pihole"
+	  "/srv/podman/pihole/dnsmasq:/etc/dnsmasq.d"
+	];
+        extraOptions = [
+	  "--pull=newer"
+          #"--cap-add=NET_ADMIN" # only needed for DHCP service
+	];
       };
 
       plex = {
