@@ -85,17 +85,16 @@
     calibre
     discord
     drawio
-    git
+    eyedropper
+    fastfetch
     gnome-boxes
     metadata-cleaner
     obsidian
     parabolic
     plexamp
-    podman-desktop
     slack
     tuba
     video-trimmer
-    virt-manager
 
     # data science
     dbeaver-bin
@@ -104,10 +103,16 @@
     mongodb-tools
     postman
 
+    # devops
+    git
+    hugo
+    podman-desktop
+    virt-manager
+
     # gaming
     cartridges
 
-    # utils
+    # utilities
     btop
     curl
     doctl
