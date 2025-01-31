@@ -15,6 +15,12 @@
       locations."/".proxyPass = "http://127.0.0.1:28978/";
     };
 
+    virtualHosts."bytestash.reika.io" = {
+      forceSSL = true;
+      useACMEHost = "reika.io";
+      locations."/".proxyPass = "http://127.0.0.1:25025/";
+    };
+
     virtualHosts."cyberchef.reika.io" = {
       forceSSL = true;
       useACMEHost = "reika.io";
@@ -40,6 +46,12 @@
       locations."/".proxyWebsockets = true;
     };
 
+    virtualHosts."kavita.reika.io" = {
+      forceSSL = true;
+      useACMEHost = "reika.io";
+      locations."/".proxyPass = "http://127.0.0.1:18999/";
+    };
+
     virtualHosts."lidarr.reika.io" = {
       forceSSL = true;
       useACMEHost = "reika.io";
@@ -62,6 +74,12 @@
       forceSSL = true;
       useACMEHost = "reika.io";
       locations."/".proxyPass = "http://127.0.0.1:10094/";
+    };
+
+    virtualHosts."pinchflat.reika.io" = {
+      forceSSL = true;
+      useACMEHost = "reika.io";
+      locations."/".proxyPass = "http://127.0.0.1:18945/";
     };
 
     virtualHosts."plex.reika.io" = {
