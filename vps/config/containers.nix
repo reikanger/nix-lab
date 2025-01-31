@@ -33,7 +33,69 @@
         volumes = [
           "audiobooks_config:/config"
           "audiobooks_metadata:/metadata"
+          "/mnt/media/audiobooks:/audiobooks"
+          "/mnt/media/podcasts:/podcasts"
         ];
+      };
+
+      # Glance
+      glance = {
+        image = "docker.io/glanceapp/glance:latest";
+	extraOptions = [ "--pull=newer" ];
+	hostname = "glance";
+	ports = [ "127.0.0.1:10091:8080" ];
+	volumes = [
+	  "/srv/podman/glance/glance.yml:/app/glance.yml"
+	  "/etc/localtime:/etc/localtime:ro"
+	];
+      };
+
+      # Hoader
+      hoarder-web = {
+	image = "ghcr.io/hoarder-app/hoarder:release";
+	extraOptions = [ "--pod=hoarder" "--pull=newer" ];
+        dependsOn = [ "hoarder-chrome" "hoarder-search" ];
+	environment = {
+	  HOARDER_VERSION = "release";
+          NEXTAUTH_SECRET = "W6OgNwxW592UZvzVSn/XXqOAitxW3bBTt7NzCcxinV2L1Se+";
+          MEILI_MASTER_KEY = "BlqfWLflGw/0/VqEQGUyJm7+F/KoXcAyM/1HRq3YTmx3OjFJ";
+          NEXTAUTH_URL = "https://hoarder.reika.io";
+	  MEILI_ADDR = "http://hoarder-search:7700";
+	  BROWSER_WEB_URL = "http://hoarder-chrome:9222";
+	  DATA_DIR = "/data";
+	  DISABLE_SIGNUPS = "true";
+	};
+	volumes = [
+	  "hoarder_data:/data"
+	];
+      };
+
+      hoarder-chrome = {
+        image = "gcr.io/zenika-hub/alpine-chrome:123";
+	extraOptions = [ "--pod=hoarder" "--pull=newer" ];
+	cmd = [
+	  "--no-sandbox"
+	  "--disable-gpu"
+	  "--disable-dev-shm-usage"
+	  "--remote-debugging-address=0.0.0.0"
+	  "--remote-debugging-port=9222"
+	  "--hide-scrollbars"
+	];
+      };
+
+      hoarder-search = {
+        image = "docker.io/getmeili/meilisearch:v1.11.1";
+	extraOptions = [ "--pod=hoarder" "--pull=newer" ];
+	environment = {
+	  HOARDER_VERSION = "release";
+          NEXTAUTH_SECRET = "W6OgNwxW592UZvzVSn/XXqOAitxW3bBTt7NzCcxinV2L1Se+";
+          MEILI_MASTER_KEY = "BlqfWLflGw/0/VqEQGUyJm7+F/KoXcAyM/1HRq3YTmx3OjFJ";
+          NEXTAUTH_URL = "https://hoarder.reika.io";
+	  MEILI_NO_ANALYTICS = "true";
+	};
+	volumes = [
+	  "hoarder_search_data:/meili_data"
+	];
       };
 
       # Mealie
@@ -61,7 +123,7 @@
         image = "docker.io/mariadb:latest";
 	extraOptions = [ "--pod=walla" "--pull=newer" ];
         environment = {
-          MYSQL_ROOT_PASSWORD = "";
+          MYSQL_ROOT_PASSWORD = "d7x6gqg3asksv3p4nec34k6k4kfcztqf";
         };
 	volumes = [
 	  "walladb_data:/var/lib/mysql"
@@ -79,13 +141,13 @@
         dependsOn = [ "walladb" "walla-redis" ];
         #ports = [ "127.0.0.1:19013:80" ];
         environment = {
-          MYSQL_ROOT_PASSWORD = "";
+          MYSQL_ROOT_PASSWORD = "d7x6gqg3asksv3p4nec34k6k4kfcztqf";
           SYMFONY__ENV__DATABASE_DRIVER = "pdo_mysql";
           SYMFONY__ENV__DATABASE_HOST = "walladb";
           SYMFONY__ENV__DATABASE_PORT = "3306";
-          SYMFONY__ENV__DATABASE_NAME = "";
-          SYMFONY__ENV__DATABASE_USER = "";
-          SYMFONY__ENV__DATABASE_PASSWORD = "";
+          SYMFONY__ENV__DATABASE_NAME = "wallabag";
+          SYMFONY__ENV__DATABASE_USER = "wallabag";
+          SYMFONY__ENV__DATABASE_PASSWORD = "qopu3xfdkzzjcuho3gv9owxq6gtnm2dh";
           SYMFONY__ENV__DATABASE_CHARSET = "utf8mb4";
 	  SYMFONY__ENV__DATABASE_TABLE_PREFIX = "wallabag_";
           SYMFONY__ENV__DOMAIN_NAME = "https://wallabag.reika.io";
