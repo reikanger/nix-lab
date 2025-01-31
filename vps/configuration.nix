@@ -15,6 +15,7 @@
       ./config/cloudflare-tunnel.nix
       ./config/containers.nix
       ./config/networking.nix
+      ./config/nfs_client.nix
       ./config/packages.nix
       ./config/podman-pods.nix
       ./config/ssh.nix
