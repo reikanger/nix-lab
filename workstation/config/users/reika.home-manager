@@ -105,6 +105,7 @@
 
     # devops
     git
+    go
     hugo
     podman-desktop
     virt-manager
