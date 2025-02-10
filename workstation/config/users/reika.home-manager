@@ -108,6 +108,10 @@
     go
     hugo
     podman-desktop
+    terraform
+    terraform-providers.digitalocean
+    terraform-providers.kubectl
+    terraform-providers.libvirt
     virt-manager
 
     # gaming
