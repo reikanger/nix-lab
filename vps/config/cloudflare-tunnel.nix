@@ -15,6 +15,7 @@
 	  "monica.reika.io" = "http://localhost:10085";
 	  "skywatch.reika.io" = "http://127.0.0.1:8000";
 	  "skywatch-api.reika.io" = "http://127.0.0.1:5000";
+	  "readeck.reika.io" = "http://localhost:10083";
 	  "recipes.reika.io" = "http://localhost:10084";
 	  "wallabag.reika.io" = "http://localhost:19013";
 	};

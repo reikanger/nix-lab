@@ -98,6 +98,17 @@
 	];
       };
 
+      # Readeck - readeck.org
+      readeck = {
+        image = "codeberg.org/readeck/readeck:latest";
+	extraOptions = [ "--pull=newer" ];
+        hostname = "readeck";
+        ports = [ "127.0.0.1:10083:8000" ];
+        volumes = [
+          "/srv/podman/readeck:/readeck"
+        ];
+      };
+
       # Mealie
       recipes = {
         image = "ghcr.io/mealie-recipes/mealie:latest";
@@ -145,8 +156,8 @@
           SYMFONY__ENV__DATABASE_DRIVER = "pdo_mysql";
           SYMFONY__ENV__DATABASE_HOST = "walladb";
           SYMFONY__ENV__DATABASE_PORT = "3306";
-          SYMFONY__ENV__DATABASE_NAME = "wallabag";
-          SYMFONY__ENV__DATABASE_USER = "wallabag";
+          SYMFONY__ENV__DATABASE_NAME = "";
+          SYMFONY__ENV__DATABASE_USER = "";
           SYMFONY__ENV__DATABASE_PASSWORD = "";
           SYMFONY__ENV__DATABASE_CHARSET = "utf8mb4";
 	  SYMFONY__ENV__DATABASE_TABLE_PREFIX = "wallabag_";
