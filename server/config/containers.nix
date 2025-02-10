@@ -24,15 +24,33 @@
     backend = "podman";
 
     containers = {
-      kavita = {
-        image = "docker.io/jvmilazz0/kavita:latest";
+      # ByteStash
+      bytestash = {
+        image = "ghcr.io/jordan-dalby/bytestash:latest";
 	extraOptions = [ "--pull=newer" ];
-        hostname = "kavita";
-        ports = [ "127.0.0.1:18999:5000" ];
-        volumes = [
-          "/tank/media/books:/manga:ro"
-          "kavita_data:/kavita/config"
-        ];
+	hostname = "bytestash";
+	ports = [ "127.0.0.1:25025:5000" ];
+	environment = {
+	  # See https://github.com/jordan-dalby/ByteStash/wiki/FAQ#environment-variables
+          BASE_PATH = "";
+          JWT_SECRET = "";
+          TOKEN_EXPIRY = "24h";
+          ALLOW_NEW_ACCOUNTS = "true";
+          DEBUG = "true";
+          DISABLE_ACCOUNTS = "false";
+          DISABLE_INTERNAL_ACCOUNTS = "false";
+
+          # See https://github.com/jordan-dalby/ByteStash/wiki/Single-Sign%E2%80%90on-Setup for more info
+          OIDC_ENABLED = "false";
+          #OIDC_DISPLAY_NAME: ""
+          #OIDC_ISSUER_URL: ""
+          #OIDC_CLIENT_ID: ""
+          #OIDC_CLIENT_SECRET: ""
+          #OIDC_SCOPES: ""
+	};
+	volumes = [
+	  "/srv/podman/bytestash:/data/snippets"
+	];
       };
 
       cloudbeaver = {
@@ -66,7 +84,7 @@
         environment = {
           APP_ENV = "production";
           APP_DEBUG = "false";
-          SITE_OWNER = "reikanger@gmail.com";
+          SITE_OWNER = "";
           APP_KEY = "";
           DEFAULT_LANGUAGE = "en_US";
           DEFAULT_LOCALE = "equal";
@@ -79,7 +97,7 @@
           DB_HOST = "firefly-db";
           DB_PORT = "3306";
           DB_DATABASE = "firefly";
-          DB_USERNAME = "firefly";
+          DB_USERNAME = "";
           DB_PASSWORD = "";
           MYSQL_USE_SSL = "false";
           MYSQL_SSL_VERIFY_SERVER_CERT = "true";
@@ -143,7 +161,7 @@
           MYSQL_RANDOM_ROOT_PASSWORD = "yes";
           MYSQL_USER = "";
           MYSQL_PASSWORD = "";
-          MYSQL_DATABASE = "";
+          MYSQL_DATABASE = "firefly";
         };
         volumes = [
           "firefly_db:/var/lib/mysql"
@@ -181,6 +199,17 @@
         volumes = [
           "/home/reika:/home/jovyan/work"
           "/etc/localtime:/etc/localtime:ro"
+        ];
+      };
+
+      kavita = {
+        image = "docker.io/jvmilazz0/kavita:latest";
+	extraOptions = [ "--pull=newer" ];
+        hostname = "kavita";
+        ports = [ "127.0.0.1:18999:5000" ];
+        volumes = [
+          "/tank/media/books:/manga:ro"
+          "kavita_data:/kavita/config"
         ];
       };
 
@@ -266,6 +295,21 @@
 	];
       };
 
+      # Pinchflat
+      pinchflat = {
+        image = "ghcr.io/kieraneglin/pinchflat:latest";
+	extraOptions = [ "--pull=newer" ];
+	hostname = "pinchflat";
+	ports = [ "127.0.0.1:18945:8945" ];
+	environment = {
+	  TZ = "America/Chicago";
+	};
+	volumes = [
+	  "/srv/podman/pinchflat/config:/config"
+	  "/srv/podman/pinchflat/downloads:/downloads"
+	];
+      };
+
       plex = {
         image = "docker.io/plexinc/pms-docker:latest";
 	extraOptions = [ "--pull=newer" ];
@@ -302,6 +346,22 @@
           "/tank/media/sports:/mnt/videos/sports:ro"
           "/tank/media/tv:/mnt/videos/tv:ro"
         ];
+      };
+
+      podfetch = {
+        image = "docker.io/samuel19982/podfetch:latest";
+	extraOptions = [ "--pull=newer" ];
+	hostname = "podfetch";
+        ports = [ "127.0.0.1:18084:8000" ];
+	environment = {
+	  POLLING_INTERVAL = "60";
+	  SERVER_URL = "https://podfetch.reika.io";
+          DATABASE_URL = "sqlite:///app/db/podcast.db";
+	};
+	volumes = [
+	  "podfetch_podcasts:/app/podcasts"
+	  "podfetch_db:/app/db"
+	];
       };
 
       podgrab = {

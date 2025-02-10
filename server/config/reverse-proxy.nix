@@ -88,6 +88,12 @@
       locations."/".proxyPass = "http://127.0.0.1:32400/";
     };
 
+    virtualHosts."podfetch.reika.io" = {
+      forceSSL = true;
+      useACMEHost = "reika.io";
+      locations."/".proxyPass = "http://127.0.0.1:18084/";
+    };
+
     virtualHosts."podgrab.reika.io" = {
       forceSSL = true;
       useACMEHost = "reika.io";
