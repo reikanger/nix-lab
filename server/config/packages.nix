@@ -5,7 +5,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Enable ZSH
-  programs.zsh.enable = true;
+  programs.fish.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

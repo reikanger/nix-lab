@@ -24,6 +24,23 @@
     userEmail = "reikanger@gmail.com";
   };
 
+  # Neovim Configuration
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+
+    extraConfig = ''
+        syntax on
+        set number
+        set tabstop=2
+        set shiftwidth=2
+        set expandtab
+        set cursorline
+    '';
+  };
+
   # tmux configuration
   programs.tmux = {
     enable = true;
@@ -32,27 +49,17 @@
     ];
     extraConfig = ''
       set-option -g mouse on
-      set-option -g default-shell ${pkgs.zsh}/bin/zsh
+      set-option -g default-shell ${pkgs.fish}/bin/fish
     '';
   };
 
   # Shell Configuration
-  programs.zsh = {
+  programs.fish = {
     enable = true;
-
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "history" "python" "man" ];
-      theme = "gentoo";
-    };
 
     shellAliases = {
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-      vi = "nvim";
-      vim = "nvim";
       pipupgrade = "pip freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip install -U";
       pip3upgrade = "pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs pip3 install -U";
       run-vlc = "NIXPKGS_ALLOW_UNFREE=1 nix run --impure nixpkgs#vlc";
@@ -61,7 +68,7 @@
       macragge-ts = "ssh -A reika@macragge.walleye-walleye.ts.net";
       protos = "ssh -A reika@protos.lan";
       protos-ts = "ssh -A reika@protos.walleye-walleye.ts.net";
-      vespator = "ssh -A reika@vespator.walleye-walleye.ts.net";
+      vespator-ts = "ssh -A reika@vespator.walleye-walleye.ts.net";
     };
   };
 
@@ -69,14 +76,16 @@
   home.packages = with pkgs; [
     # applications
     git
-    neovim
+
+    # monitoring
+    btop
+    htop
+    iftop
+    iotop
 
     # utils
     curl
     file
-    htop
-    iftop
-    iotop
     jq
     ripgrep
     tmux

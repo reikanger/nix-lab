@@ -5,8 +5,8 @@
   users.users.reika = {
     isNormalUser = true;
     description = "Ryan Eikanger";
-    shell = pkgs.zsh;
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    shell = pkgs.fish;
+    extraGroups = [ "networkmanager" "wheel" "qemu" "kvm" "libvirtd" ];
     packages = with pkgs; [];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK0ZmfCfV8PYxNvlDjYiMdwxlcu+ZC7xkjIBp3Qv6toA reika.io"
