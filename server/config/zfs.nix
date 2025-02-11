@@ -11,4 +11,7 @@
 
   # Automatic scrubbing of ZFS pools
   services.zfs.autoScrub.enable = true;
+
+  # Automatic snapshots
+  services.zfs.autoSnapshot.enable = true;
 }
