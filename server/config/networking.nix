@@ -2,10 +2,41 @@
 
 {
   # Enable networking
-  networking.networkmanager.enable = true;
-  networking.hostName = "macragge"; # Define your hostname.
+  networking = {
+    hostName = "macragge";  # Define your hostname
+    domain = "lan";
+    useDHCP = false;
 
-  # KVM bridge network interface
+    # Management network interface
+    interfaces.enp0s25 = {
+      ipv4.addresses = [{
+        address = "192.168.1.5";
+	prefixLength = 24;
+      }];
+    };
+
+    # KVM bridge
+    bridges = {
+      "bridge0" = {
+        interfaces = [ "enp5s0" ];
+      };
+    };
+
+    # KVM bridge interface
+    interfaces.bridge0 = {
+      # unassigned address
+    };
+
+    defaultGateway = {
+      address = "192.168.1.1";
+      interface = "enp0s25";
+    };
+
+    nameservers = [ "192.168.1.1" ];
+  };
+
+  # Disable NetworkManager
+  networking.networkmanager.enable = false;
 
   # always allow traffic from the Tailscale network
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
