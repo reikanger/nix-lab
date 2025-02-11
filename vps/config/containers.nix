@@ -109,17 +109,6 @@
 	];
       };
 
-      # Readeck - readeck.org
-      readeck = {
-        image = "codeberg.org/readeck/readeck:latest";
-	extraOptions = [ "--pull=newer" ];
-        hostname = "readeck";
-        ports = [ "127.0.0.1:10083:8000" ];
-        volumes = [
-          "/srv/podman/readeck:/readeck"
-        ];
-      };
-
       # Mealie
       recipes = {
         image = "ghcr.io/mealie-recipes/mealie:latest";
@@ -137,45 +126,6 @@
         };
         volumes = [
           "/srv/podman/mealie:/app/data"
-        ];
-      };
-
-      # Wallabag
-      walladb = {
-        image = "docker.io/mariadb:latest";
-	extraOptions = [ "--pod=walla" "--pull=newer" ];
-        environment = {
-          MYSQL_ROOT_PASSWORD = "";
-        };
-	volumes = [
-	  "walladb_data:/var/lib/mysql"
-	];
-      };
-
-      walla-redis = {
-        image = "docker.io/redis:alpine";
-	extraOptions = [ "--pod=walla" "--pull=newer" ];
-      };
-
-      wallabag = {
-        image = "docker.io/wallabag/wallabag:latest";
-	extraOptions = [ "--pod=walla" "--pull=newer" ];
-        dependsOn = [ "walladb" "walla-redis" ];
-        #ports = [ "127.0.0.1:19013:80" ];
-        environment = {
-          MYSQL_ROOT_PASSWORD = "";
-          SYMFONY__ENV__DATABASE_DRIVER = "pdo_mysql";
-          SYMFONY__ENV__DATABASE_HOST = "walladb";
-          SYMFONY__ENV__DATABASE_PORT = "3306";
-          SYMFONY__ENV__DATABASE_NAME = "";
-          SYMFONY__ENV__DATABASE_USER = "";
-          SYMFONY__ENV__DATABASE_PASSWORD = "";
-          SYMFONY__ENV__DATABASE_CHARSET = "utf8mb4";
-	  SYMFONY__ENV__DATABASE_TABLE_PREFIX = "wallabag_";
-          SYMFONY__ENV__DOMAIN_NAME = "https://wallabag.reika.io";
-        };
-        volumes = [
-          "/srv/podman/wallabag/images:/var/www/wallabag/web/assets/images"
         ];
       };
     };

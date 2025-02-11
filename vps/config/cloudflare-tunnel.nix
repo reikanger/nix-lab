@@ -16,9 +16,7 @@
 	  "monica.reika.io" = "http://localhost:10085";
 	  "skywatch.reika.io" = "http://127.0.0.1:8000";
 	  "skywatch-api.reika.io" = "http://127.0.0.1:5000";
-	  "readeck.reika.io" = "http://localhost:10083";
 	  "recipes.reika.io" = "http://localhost:10084";
-	  "wallabag.reika.io" = "http://localhost:19013";
 	};
 	credentialsFile = "${config.users.users.reika.home}/.cloudflared/8ab93b55-aa2f-420d-a276-85d02d8f3ef7.json";
       };
