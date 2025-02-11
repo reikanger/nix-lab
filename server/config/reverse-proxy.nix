@@ -135,5 +135,11 @@
       useACMEHost = "reika.io";
       locations."/".proxyPass = "http://127.0.0.1:39091/";
     };
+
+    virtualHosts."uptime.reika.io" = {
+      forceSSL = true;
+      useACMEHost = "reika.io";
+      locations."/".proxyPass = "http://127.0.0.1:23001/";
+    };
   };
 }

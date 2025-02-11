@@ -84,7 +84,7 @@
         environment = {
           APP_ENV = "production";
           APP_DEBUG = "false";
-          SITE_OWNER = "";
+          SITE_OWNER = "reikanger@gmail.com";
           APP_KEY = "";
           DEFAULT_LANGUAGE = "en_US";
           DEFAULT_LOCALE = "equal";
@@ -96,7 +96,7 @@
           DB_CONNECTION = "mysql";
           DB_HOST = "firefly-db";
           DB_PORT = "3306";
-          DB_DATABASE = "firefly";
+          DB_DATABASE = "";
           DB_USERNAME = "";
           DB_PASSWORD = "";
           MYSQL_USE_SSL = "false";
@@ -116,7 +116,7 @@
           COOKIE_SAMESITE = "lax";
           MAIL_MAILER = "log";
           MAIL_PORT = "2525";
-          MAIL_FROM = "";
+          MAIL_FROM = "changeme@example.com";
           MAILGUN_ENDPOINT = "api.mailgun.net";
           SEND_ERROR_MESSAGE = "true";
           SEND_REPORT_JOURNALS = "true";
@@ -494,6 +494,17 @@
           "--cap-add=NET_ADMIN"
           "--cap-add=net_admin,mknod"
           "--device=/dev/net/tun"
+        ];
+      };
+
+      # Uptime Kuma - https://github.com/louislam/uptime-kuma
+      uptime = {
+        image = "docker.io/louislam/uptime-kuma:1";
+	extraOptions = [ "--pull=newer" ];
+	hostname = "uptime";
+        ports = [ "127.0.0.1:23001:3001" ];
+        volumes = [
+          "uptime_data:/app/data"
         ];
       };
     };
