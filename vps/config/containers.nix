@@ -50,6 +50,17 @@
 	];
       };
 
+      # GPodder Sync - https://hub.docker.com/r/ganeshlab/opodsync
+      gpodder = {
+        image = "docker.io/ganeshlab/opodsync:latest";
+	extraOptions = [ "--pull=newer" ];
+	hostname = "gpodder";
+	ports = [ "127.0.0.1:10092:8080" ];
+	volumes = [
+	  "gpodder_data:/var/www/server/data"
+	];
+      };
+
       # Hoader
       hoarder-web = {
 	image = "ghcr.io/hoarder-app/hoarder:release";
