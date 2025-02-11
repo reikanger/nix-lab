@@ -94,12 +94,6 @@
       locations."/".proxyPass = "http://127.0.0.1:18084/";
     };
 
-    virtualHosts."podgrab.reika.io" = {
-      forceSSL = true;
-      useACMEHost = "reika.io";
-      locations."/".proxyPass = "http://127.0.0.1:18083/";
-    };
-
     virtualHosts."prowlarr.reika.io" = {
       forceSSL = true;
       useACMEHost = "reika.io";

@@ -364,20 +364,6 @@
 	];
       };
 
-      podgrab = {
-        image = "docker.io/akhilrex/podgrab:latest";
-	extraOptions = [ "--pull=newer" ];
-        hostname = "podgrab";
-        ports = [ "127.0.0.1:18083:8080" ];
-        environment = {
-          CHECK_FREQUENCY = "240";
-        };
-        volumes = [
-          "podgrab_data:/config"
-          "/srv/podman/podgrab:/assets"
-        ];
-      };
-
       prowlarr = {
         image = "lscr.io/linuxserver/prowlarr:latest";
 	extraOptions = [ "--pull=newer" ];
