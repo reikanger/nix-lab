@@ -107,6 +107,7 @@
     git
     go
     hugo
+    kubectl
     podman-desktop
     terraform
     terraform-providers.digitalocean
