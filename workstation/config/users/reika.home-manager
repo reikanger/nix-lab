@@ -107,6 +107,7 @@
     git
     go
     hugo
+    jujutsu
     kubectl
     podman-desktop
     terraform
